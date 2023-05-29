@@ -1,5 +1,6 @@
 import { type RequestHandler } from 'msw'
 import { type SetupServer, setupServer } from 'msw/node'
+import { handlers as appHandlers } from './handlers'
 
 declare global {
   var mswServerInstance: SetupServer
@@ -33,3 +34,5 @@ function restart(server: SetupServer, handlers: Array<RequestHandler>) {
   server.close()
   start(setup(handlers))
 }
+
+export const server = setupServer(...appHandlers)
