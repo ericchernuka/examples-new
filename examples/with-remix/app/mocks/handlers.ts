@@ -1,4 +1,5 @@
 import { rest, graphql, HttpResponse } from 'msw'
+import type { ViewerQuery } from '~/patient-gql/graphql'
 
 export const handlers = [
   rest.get('https://api.example.com/user', () => {
@@ -7,23 +8,16 @@ export const handlers = [
       lastName: 'Maverick',
     })
   }),
-  graphql.query('ListMovies', () => {
+  graphql.query<ViewerQuery>('Viewer', () => {
     return HttpResponse.json({
       data: {
-        movies: [
-          {
-            id: '6c6dba95-e027-4fe2-acab-e8c155a7f0ff',
-            title: 'The Lord of The Rings',
+        viewer: {
+          id: '1',
+          name: {
+            firstName: 'Eric',
+            lastName: 'Bower',
           },
-          {
-            id: 'a2ae7712-75a7-47bb-82a9-8ed668e00fe3',
-            title: 'The Matrix',
-          },
-          {
-            id: '916fa462-3903-4656-9e76-3f182b37c56f',
-            title: 'Star Wars: The Empire Strikes Back',
-          },
-        ],
+        },
       },
     })
   }),
