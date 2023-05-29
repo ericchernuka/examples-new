@@ -1,4 +1,4 @@
-import type { LoaderFunction, V2_MetaFunction } from '@remix-run/node'
+import { json, LoaderFunction, V2_MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 
 export const meta: V2_MetaFunction = () => {
@@ -30,10 +30,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   })
   const { data } = await graphqlResponse.json()
 
-  return {
+  return json({
     serverSideData,
     viewerData: data,
-  }
+  })
 }
 
 export default function Index() {
